@@ -647,10 +647,17 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
-        -- rust_analyzer = {},
+        clangd = {},
+        gopls = {},
+        ruff = {
+          trace = 'messages',
+          init_options = {
+            settings = {
+              logLevel = 'debug',
+            },
+          },
+        },
+        rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -740,11 +747,14 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        markdown = { 'markdownlint-cli2' },
+        python = { 'ruff_format', 'ruff_fix' },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        go = { 'goimports', 'gofmt' },
+        rust = { 'rustfmt', lsp_format = 'fallback' },
+        sh = { 'shfmt', 'shellharden' },
+        yaml = { 'yamlfmt' },
+        ['_'] = { 'prettierd' },
       },
     },
   },
@@ -876,7 +886,7 @@ require('lazy').setup({
       vim.cmd.colorscheme 'minicyan'
 
       -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
+      -- vim.cmd.hi 'Comment gui=none'
     end,
   },
 
@@ -885,7 +895,7 @@ require('lazy').setup({
     'folke/todo-comments.nvim',
     event = 'VimEnter',
     dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = { signs = false },
+    opts = {},
   },
 
   { -- Collection of various small independent plugins/modules
@@ -945,6 +955,7 @@ require('lazy').setup({
         'vim',
         'vimdoc',
         'yaml',
+        'python',
       },
       incremental_selection = {
         enable = true,
