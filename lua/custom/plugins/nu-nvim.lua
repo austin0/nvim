@@ -1,5 +1,11 @@
 return {
-  'LhKipp/nvim-nu',
-  build = ':TSInstall nu',
-  opts = {},
+  {
+    'LhKipp/nvim-nu',
+    dependencies = { 'nvimtools/none-ls.nvim' },
+    config = function()
+      require('nu').setup {
+        use_lsp_features = true,
+      }
+    end,
+  },
 }
