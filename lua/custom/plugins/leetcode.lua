@@ -15,7 +15,7 @@ return {
     lang = 'python3',
     injector = { ---@type table<lc.lang, lc.inject>
       ['python3'] = {
-        before = true,
+        before = false,
       },
       ['cpp'] = {
         before = { '#include <bits/stdc++.h>', 'using namespace std;' },
