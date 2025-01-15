@@ -222,6 +222,8 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+vim.filetype.add { filename = { Jenkinsfile = 'groovy' } }
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -688,6 +690,10 @@ require('lazy').setup({
           },
         },
         rust_analyzer = {},
+        groovyls = {
+          -- cmd = { 'groovy-language-server' },
+          -- filetypes = { 'jenkinsfile', 'Jenkinsfile' },
+        },
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -773,8 +779,9 @@ require('lazy').setup({
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
         go = { 'goimports', 'gofmt' },
         rust = { 'rustfmt', lsp_format = 'fallback' },
-        sh = { 'shfmt', 'shellharden' },
+        sh = { 'shfmt', 'shellcheck' },
         yaml = { 'yamlfmt' },
+        groovy = { 'npm-groovy-lint' },
         ['_'] = { 'prettierd' },
       },
     },
